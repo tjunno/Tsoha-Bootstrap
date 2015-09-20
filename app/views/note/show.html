@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{note.name}}</h1>
+<!--<p>
+    <button class="btn btn-danger">Remove</button>
+</p>
+ -->
+<ul>
+    <li><strong>Priority:</strong> <label class="label label-danger">{{note.priority}}</label></li>
+    <li><strong>Type:</strong>{{note.type}}</li>
+    <li><strong>Added:</strong>{{note.added}}</li>
+    <li><strong>State:</strong>
+        {% if note.state %}
+        <label class="label label-success">Done</label>
+        {% else %}
+        <label class="label label-danger">Undone</label>
+        {% endif %}
+    </li>
+    <li><strong>Desciption:</strong></li>
+    <label class="label label-info">{{note.description}}</label>
+</ul>
+
+{% endblock %}

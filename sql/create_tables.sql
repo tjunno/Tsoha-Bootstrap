@@ -1,1 +1,34 @@
--- Lisää CREATE TABLE lauseet tähän tiedostoon
+CREATE TABLE Dude(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  password VARCHAR(120) NOT NULL
+);
+
+CREATE TABLE Type(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  dude INTEGER REFERENCES Dude(id)
+);
+
+CREATE TABLE Priority (
+  id   SERIAL PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  prio INTEGER NOT NULL,
+  dude INTEGER REFERENCES Dude (id)
+);
+
+CREATE TABLE Note(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  added DATE,
+  state BOOLEAN NOT NULL DEFAULT FALSE,
+  description VARCHAR(255),
+  dude INTEGER REFERENCES Dude(id),
+  priority INTEGER REFERENCES Priority(id)
+);
+
+CREATE TABLE Typeonote(
+  id SERIAL PRIMARY KEY,
+  note INTEGER REFERENCES Note(id),
+  dude INTEGER REFERENCES dude(id)
+);

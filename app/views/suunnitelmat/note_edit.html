@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa askaretta: Palautus</h1>
+
+  <form>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox">
+        Status
+      </label>
+    </div>
+    <div class="form-group">
+      <label>Name</label>
+      <input class="form-control" value="Palautus" type="text">
+    </div>
+    <div class="form-group">
+      <label>Prioriteetti</label>
+      <input class="form-control" value="Tärkein" type="text">
+    </div>
+      <div class="form-group">
+          <label>Luokka</label>
+          <input class="form-control" value="Koulujutut" type="text">
+      </div>
+    <div class="form-group">
+      <label>Kuvaus</label>
+      <textarea class="form-control">Tietokantasovelluksen palautus.
+      </textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+{% endblock %}

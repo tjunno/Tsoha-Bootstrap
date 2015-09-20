@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Käyttäjän Ossi muistilista</h1>
+
+  <p>
+    <a href="#" class="btn btn-success">Lisää peli</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+    <tr>Name</tr>
+     <tr>Added</tr>
+     <tr>State</tr>
+     <tr>Priority</tr>
+     <tr>Description</tr>
+     <th></th>
+     </tr>
+    </thead>
+
+      <tbody>
+      <!-- Listataan pelit tähän -->
+      <tr>
+          <td><a href="#">Palautus</a></td>
+          <td>13.9.2015</td>
+          <td>Undone</td>
+          <td><label class="label label-danger">Tärkein</label></td>
+          <td>Koulujutut</td>
+          <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a></th>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
