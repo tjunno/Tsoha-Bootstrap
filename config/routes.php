@@ -16,6 +16,10 @@ $routes->get('/suunnitelmat/note/1', function() {
     HelloWorldController::note_show();
 });
 
+$routes->get('/suunnitelmat/note/1/edit', function() {
+    HelloWorldController::note_edit();
+});
+
 $routes->get('/suunnitelmat/login', function() {
     HelloWorldController::login();
 });
