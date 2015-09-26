@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>User Ossi tasklist</h1>
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+<h1>Users {{user_logged_in.username}} tasklist</h1>
 
 <p>
     <a href="{{base_path}}/note/new" class="btn btn-success">Add task</a>

@@ -1,5 +1,9 @@
 # Tietokantasovelluksen esittelysivu
 
+Testitunnukset:
+user: Ossi
+pw: Ossi123
+
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](https://tjunno.users.cs.helsinki.fi/todo/)

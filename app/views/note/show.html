@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms %}
+<div class="alert alert-success">
+  {{message}}
+</div>
 <h1>{{note.name}}</h1>
-<!--<p>
-    <button class="btn btn-danger">Remove</button>
+<p>
+    {{forms.destroy_button("#{base_path}/note/#{note.id}/destroy")}}
+    <!-- {{forms.edit_button("#{base_path}/note/#{note.id}/edit")}} -->
+    <a class="btn btn-default" href="{{base_path}}/note/{{note.id}}/edit">Edit</a>
 </p>
- -->
 <ul>
     <li><strong>Priority:</strong> <label class="label label-danger">{{note.priority}}</label></li>
     <li><strong>Type:</strong>{{note.type}}</li>

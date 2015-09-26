@@ -11,6 +11,7 @@ class Note extends BaseModel
 
     public function __construct($attributes){
         parent::__construct($attributes);
+        $this->validators = array('validate_name', 'validate_priority', 'validate_description');
     }
 
     public static function all(){
@@ -32,9 +33,6 @@ class Note extends BaseModel
         return $notes;
     }
 
-    /**
-     *
-     */
     public static function find($id){
         $query = DB::connection()->prepare('SELECT * FROM Note WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
@@ -55,16 +53,61 @@ class Note extends BaseModel
     }
 
     public function save(){
-        $query = DB::connection()->prepare('INSERT INTO Note (name, priority, description) VALUES (:name, :priority, :description) RETURNING id');
-        $query->execute(array('name' => $this->name, 'priority' => $this->priority, 'description' => $this->description));
+        $query = DB::connection()->prepare('INSERT INTO Note (name, priority, description, added) VALUES (:name, :priority, :description, :added) RETURNING id');
+        $query->execute(array('name' => $this->name, 'added' => $this->added, 'priority' => $this->priority, 'description' => $this->description));
         $row = $query->fetch();
         $this->id = $row['id'];
     }
 
-    public function remove(){
+    public function update(){
+        $query = DB::connection()->prepare('UPDATE Note SET (name, priority, description) = (:name, :priority, :description) WHERE id = :id');
+        $query->execute(array('id' => $this->id, 'name' => $this->name, 'priority' => $this->priority, 'description' => $this->description));
+        $row = $query->fetch();
+    }
+
+    public function destroy(){
         $query = DB::connection()->prepare('DELETE FROM Note where id = :id');
         $query->execute(array('id' => $this->id));
         $row = $query->fetch();
     }
 
+    public function validate_name(){
+        $errors = array();
+        if ($this->name == '' || $this->name == null) {
+            $errors[] = 'Name cannot be empty!';
+        }
+        if (strlen($this->name) < 3) {
+            $errors[] = 'Length of the name must be over 3 chars';
+        }
+        if (strlen($this->name) > 120) {
+            $errors[] = 'Length of the name must be under 120 chars';
+        }
+        return $errors;
+    }
+
+    public function validate_priority(){
+        $errors = array();
+        if ($this->priority == '' || $this->priority == null){
+            $errors[] = 'Priority cannot be empty';
+        }
+        if (is_int($this->priority)){
+            $errors[] = 'Priority must be integer';
+        }
+        if ($this->priority < 0 || $this->priority > 10) {
+            $errors[] = 'Priority must be over between 0 and 10';
+        }
+        return $errors;
+    }
+
+    public function validate_description(){
+        $errors = array();
+        if ($this->priority == '' || $this->priority == null){
+            $errors[] = 'Description cannot be empty';
+        }
+
+        if (strlen($this->description) > 255){
+            $errors[] = 'Description must be under 255 chars!';
+        }
+        return $errors;
+    }
 }

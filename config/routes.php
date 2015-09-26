@@ -42,7 +42,23 @@ $routes->post('/note', function(){
     NoteController::store();
 });
 
-$routes->post('/:id/remove', function($id){
-    NoteController::remove($id);
+$routes->get('/note/:id/edit', function($id){
+    NoteController::edit($id);
+});
+
+$routes->post('/note/:id/edit', function($id){
+    NoteController::update($id);
+});
+
+$routes->post('/note/:id/destroy', function($id){
+    NoteController::destroy($id);
+});
+
+$routes->get('/login', function(){
+  UserController::login();
+});
+
+$routes->post('/login', function(){
+  UserController::handle_login();
 });
 

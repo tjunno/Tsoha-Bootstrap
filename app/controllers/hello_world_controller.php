@@ -10,13 +10,14 @@
 
     public static function sandbox()
     {
-      // Testaa koodiasi täällä
-      $tsoha = Note::find(1);
-      $notes = Note::all();
+      $doom = new Note(array(
+          'name' => 'd',
+          'priority' => '1',
+          'description' => 'Boom, boom!'
+      ));
+      $errors = $doom->errors();
 
-      Kint::dump($notes);
-      Kint::dump($tsoha);
-
+      Kint::dump($errors);
 
     }
 
