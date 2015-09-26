@@ -14,7 +14,7 @@ CREATE TABLE Priority (
   id   SERIAL PRIMARY KEY,
   name VARCHAR(120) NOT NULL,
   prio INTEGER NOT NULL,
-  dude INTEGER REFERENCES Dude (id)
+  dude INTEGER REFERENCES Dude(id)
 );
 
 CREATE TABLE Note(
@@ -30,5 +30,5 @@ CREATE TABLE Note(
 CREATE TABLE Typeonote(
   id SERIAL PRIMARY KEY,
   note INTEGER REFERENCES Note(id),
-  dude INTEGER REFERENCES dude(id)
+  dude INTEGER REFERENCES Dude(id)
 );

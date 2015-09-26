@@ -7,13 +7,9 @@
 </div>
 {% endif %}
 
-{% if errors %}
+{% if error %}
 <div class="alert alert-danger">
-    <ul>
-        {% for errors in error %}
-        <li>{{error}}</li>
-        {% endfor %}
-    </ul>
+  <li>{{error}}</li>
 </div>
 {% endif %}
 

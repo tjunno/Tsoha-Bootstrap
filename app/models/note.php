@@ -14,9 +14,9 @@ class Note extends BaseModel
         $this->validators = array('validate_name', 'validate_priority', 'validate_description');
     }
 
-    public static function all(){
-        $query = DB::connection()->prepare('SELECT * FROM Note');
-        $query->execute();
+    public static function all($user){
+        $query = DB::connection()->prepare('SELECT * FROM Note WHERE dude = :user');
+        $query->execute(array('user' => $user));
         $rows = $query->fetchAll();
         $notes = array();
         foreach($rows as $row){
@@ -53,8 +53,8 @@ class Note extends BaseModel
     }
 
     public function save(){
-        $query = DB::connection()->prepare('INSERT INTO Note (name, priority, description, added) VALUES (:name, :priority, :description, :added) RETURNING id');
-        $query->execute(array('name' => $this->name, 'added' => $this->added, 'priority' => $this->priority, 'description' => $this->description));
+        $query = DB::connection()->prepare('INSERT INTO Note (dude, name, priority, description, added) VALUES (:dude, :name, :priority, :description, :added) RETURNING id');
+        $query->execute(array('dude'=>$_SESSION['user'], 'name' => $this->name, 'added' => $this->added, 'priority' => $this->priority, 'description' => $this->description));
         $row = $query->fetch();
         $this->id = $row['id'];
     }

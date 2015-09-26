@@ -8,15 +8,19 @@
 class NoteController extends BaseController{
 
     public static function index(){
-        $notes = Note::all();
+        self::check_logged_in();
+        $user_id = $_SESSION['user'];
+        $notes = Note::all($user_id);
         View::make('note/index.html', array('notes' => $notes));
     }
 
     public static function create() {
+        self::check_logged_in();
         View::make('note/new.html');
     }
 
     public static function store(){
+        self::check_logged_in();
         $params = $_POST;
         $attributes= array(
             'name' => $params['name'],
@@ -39,16 +43,19 @@ class NoteController extends BaseController{
     }
 
     public static function show($id){
+        self::check_logged_in();
         $note = Note::find($id);
         View::make('note/show.html', array('note' => $note));
     }
 
     public static function edit($id){
+        self::check_logged_in();
         $note = Note::find($id);
         View::make('note/edit.html', array('attributes' => $note));
     }
 
     public static function update($id){
+        self::check_logged_in();
         $params = $_POST;
 
         $attributes = array(
@@ -71,6 +78,7 @@ class NoteController extends BaseController{
     }
 
     public static function destroy($id){
+        self::check_logged_in();
         $note = new Note(array('id' => $id));
         $note->destroy();
         Redirect::to('/note', array('message' => 'Task removed!'));
