@@ -1,10 +1,11 @@
 # Tietokantasovelluksen esittelysivu
 
-Testitunnukset:
-user: Ossi
-pw: Ossi123
+### Testitunnukset:
 
-Yleisiä linkkejä:
+* user: Ossi
+* pw: Ossi123
+
+### Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](https://tjunno.users.cs.helsinki.fi/todo/)
 * [Linkki staattisiin sivuihin](https://tjunno.users.cs.helsinki.fi/todo/suunnitelmat)
@@ -13,6 +14,7 @@ Yleisiä linkkejä:
 * [taulukot] (http://getbootstrap.com/css/#tables)
 * [lomakkeet] (http://getbootstrap.com/css/#forms)
 * [painikkeet] (http://getbootstrap.com/css/#buttons)
-## Työn aihe
 
-[Muistilista](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html) 
+### Työn aihe
+
+* [Muistilista](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html) 
