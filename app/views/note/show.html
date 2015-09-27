@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 {% import "macros/forms.html" as forms %}
+{% if message %}
 <div class="alert alert-success">
   {{message}}
 </div>
+{% endif %}
+
 <h1>{{note.name}}</h1>
 <p>
     {{forms.destroy_button("#{base_path}/note/#{note.id}/destroy")}}
