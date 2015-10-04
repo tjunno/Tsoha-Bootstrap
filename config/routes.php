@@ -31,6 +31,7 @@ $routes->get('/', function(){
 $routes->get('/note', function(){
     NoteController::index();
 });
+
 $routes->get('/note/new', function(){
     NoteController::create();
 });
@@ -66,3 +67,18 @@ $routes->post('/logout', function(){
   UserController::logout();
 });
 
+$routes->get('/type', function(){
+    TypeController::index();
+});
+
+$routes->get('/type/new', function(){
+    TypeController::create();
+});
+
+$routes->get('/type/:id/edit', function($id){
+    TypeController::edit($id);
+});
+
+$routes->get('/type/:id/destroy', function($id){
+    TypeController::destroy($id);
+});
