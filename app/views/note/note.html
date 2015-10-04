@@ -26,6 +26,7 @@
 <tr>Nimi</tr>
 <tr>Added</tr>
 <tr>State</tr>
+<tr>Type</tr>
 <tr>Priority</tr>
 <tr>Description</tr>
 </thead>
@@ -41,6 +42,7 @@
             <label class="label label-danger">Undone</label>
             {% endif %}
         </td>
+        <td>{{note.type}}</td>
         <td>{{note.priority}}</td>
         <td>{{note.description}}</td>
         <td><a class="btn btn-default btn-sm" href="{{base_path}}/note/{{note.id}}/edit">Edit</a></td>

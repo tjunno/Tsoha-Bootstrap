@@ -71,14 +71,39 @@ $routes->get('/type', function(){
     TypeController::index();
 });
 
-$routes->get('/type/new', function(){
-    TypeController::create();
+$routes->post('/type', function(){
+    TypeController::store();
 });
 
 $routes->get('/type/:id/edit', function($id){
     TypeController::edit($id);
 });
 
-$routes->get('/type/:id/destroy', function($id){
+$routes->post('/type/:id/edit', function($id){
+    TypeController::update($id);
+});
+
+$routes->post('/type/:id/destroy', function($id){
     TypeController::destroy($id);
 });
+
+$routes->get('/priority', function(){
+    PriorityController::index();
+});
+
+$routes->post('/priority', function(){
+    PriorityController::store();
+});
+
+$routes->get('/priority/:id/edit', function($id){
+    PriorityController::edit($id);
+});
+
+$routes->post('/priority/:id/edit', function($id){
+    PriorityController::update($id);
+});
+
+$routes->post('/priority/:id/destroy', function($id){
+    PriorityController::destroy($id);
+});
+

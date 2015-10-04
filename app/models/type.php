@@ -20,7 +20,7 @@ class Type extends BaseModel
         $query = DB::connection()->prepare('SELECT * FROM Type WHERE dude = :user');
         $query->execute(array('user' => $user));
         $rows = $query->fetchAll();
-        $notes = array();
+        $types = array();
         foreach ($rows as $row) {
             $types[] = new Type(array(
                 'id' => $row['id'],
@@ -32,22 +32,27 @@ class Type extends BaseModel
     }
 
     public static function find($id){
-        $query = DB::connection()->prepare('SELECT * FROM Note WHERE id = :id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT * FROM Type WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
         if ($row){
            $type = new Type(array(
                 'id' => $row['id'],
                 'dude' => $row['dude'],
-                'name' => $row['name'],
+                'name' => $row['name']
             ));
            return $type;
         }
         return null;
     }
 
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Type SET name = :name WHERE id = :id');
+        $query->execute(array('id' => $this->id, 'name' => $this->name));
+    }
+
     public function save(){
-        $query = DB::connection()->prepare('INSERT INTO Type (dude, name) VALUES (:dude, :name RETURNING id');
+        $query = DB::connection()->prepare('INSERT INTO Type (dude, name) VALUES (:dude, :name) RETURNING id');
         $query->execute(array('dude'=>$_SESSION['user'], 'name' => $this->name));
         $row = $query->fetch();
         $this->id = $row['id'];

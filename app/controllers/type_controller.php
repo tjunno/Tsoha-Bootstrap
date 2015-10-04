@@ -16,18 +16,12 @@ class TypeController extends BaseController
         View::make('type/index.html', array('types' => $types));
     }
 
-    public static function create()
-    {
-        self::check_logged_in();
-        View::make('type/new.html');
-    }
-
     public static function store()
     {
         self::check_logged_in();
         $params = $_POST;
         $attributes = array(
-            'name' => $params['name'],
+            'name' => $params['name']
         );
 
         $type = new Type($attributes);
@@ -36,16 +30,16 @@ class TypeController extends BaseController
         if(count($errors) == 0) {
             $type->save();
 
-            Redirect::to('/type/' . $type->id, array('message' => 'New type added!'));
+            Redirect::to('/', array('message' => 'New type added!'));
         }else{
-            View::make('type/new.html', array('errors' => $errors, 'attributes' => $attributes));
+            View::make('type/index.html', array('errors' => $errors, 'attributes' => $attributes));
         }
 
     }
 
     public static function edit($id){
         self::check_logged_in();
-        $note = Note::find($id);
+        $type = Type::find($id);
         View::make('type/edit.html', array('attributes' => $type));
     }
 
@@ -64,7 +58,7 @@ class TypeController extends BaseController
         if (count($errors) == 0) {
             $type->update();
 
-            Redirect::to('/type/' . $type->id, array('message' => 'Type has been updated successfully'));
+            Redirect::to('/type/', array('message' => 'Type has been updated successfully'));
         }else{
             View::make('type/edit.html', array('errors' => '$errors', 'attributes' => '$attributes'));
         }
@@ -73,8 +67,8 @@ class TypeController extends BaseController
 
     public static function destroy($id){
         self::check_logged_in();
-        $note = new Type(array('id' => $id));
-        $note->destroy();
+        $type = new Type(array('id' => $id));
+        $type->destroy();
         Redirect::to('/type', array('message' => 'Type removed!'));
     }
 }

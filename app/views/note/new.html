@@ -19,9 +19,18 @@
     </div>
 
     <div class="form-group">
+    <label>Type</label>
+        <select class="form-control" name="type">
+            {% for type in types %}
+            <option value="{{type}}">{{type.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
     <label>Priority</label>
-        <select class="form-control" name="category">
-            {% for priority in categories %}
+        <select class="form-control" name="priority">
+            {% for priority in priorities %}
             <option value="{{priority}}">{{priority.name}}</option>
             {% endfor %}
         </select>

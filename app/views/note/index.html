@@ -25,6 +25,7 @@
     <tr>
         <th>Name</th>
         <th>Added</th><th>State</th>
+        <th>Type</th>
         <th>Priority</th>
         <th>Description</th>
     </tr>
@@ -41,6 +42,7 @@
             <label class="label label-danger">Undone</label>
             {% endif %}
         </td>
+        <td>{{note.type}}</td>
         <td>{{note.priority}}</td>
         <td>{{note.description}}</td>
         <td><a class="btn btn-default btn-sm" href="{{base_path}}/note/{{note.id}}/edit">Edit</a></td>

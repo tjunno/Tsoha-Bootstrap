@@ -14,11 +14,7 @@
     </ul>
 </div>
 {% endif %}
-<h1>User {{user_logged_in.name}} classes</h1>
-
-<p>
-    <a href="{{base_path}}/type/new" class="btn btn-success">Add type</a>
-</p>
+<h1>User {{user_logged_in.name}} types of tasks</h1>
 
 <table class="table table-striped table-bordered">
     <thead>
@@ -41,4 +37,16 @@
     {% endfor %}
     </tbody>
 </table>
+
+<form method="post" action="{{base_path}}/type">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label></label>
+        <button type="submit" class="btn btn-success">Add type</button>
+    </div>
+</form>
 {% endblock %}

@@ -24,6 +24,7 @@ class NoteController extends BaseController{
         $params = $_POST;
         $attributes= array(
             'name' => $params['name'],
+            'type' => $params['type'],
             'priority' => $params['priority'],
             'description' => $params['description'],
             'added' => date("d.m.Y")
@@ -60,6 +61,7 @@ class NoteController extends BaseController{
 
         $attributes = array(
             'id' => $id,
+            'type' => $params['type'],
             'name' => $params['name'],
             'priority' => $params['priority'],
             'description' => $params['description']
