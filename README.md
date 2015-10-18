@@ -5,6 +5,9 @@
 * user: Ossi
 * pw: Ossi123
 
+* user: Test
+* pw: Test123
+
 ### Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](https://tjunno.users.cs.helsinki.fi/todo/)
