@@ -43,12 +43,16 @@
 <form method="post" action="{{base_path}}/priority">
     <div class="form-group">
         <label>Name</label>
-        <input type="text" name="name" class="form-control">
+        <input type="text" name="name" class="form-control" value="{{attributes.name}}">
     </div>
 
     <div class="form-group">
-        <label>Priority number (1-10)</label>
-        <input type="text" name="prio" class="form-control">
+        <label>Priority number: 10 most important and 0 not important</label>
+        <select class="form-control" name="prio">
+            {% for i in 0..10 %}
+            <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
     </div>
 
     <div class="form-group">

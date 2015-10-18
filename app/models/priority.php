@@ -86,9 +86,6 @@ class Priority extends BaseModel
         if ($this->prio == '' || $this->prio == null){
             $errors[] = 'Priority cannot be empty';
         }
-        if (is_int($this->prio)){
-            $errors[] = 'Priority must be integer';
-        }
         if ($this->prio < 0 || $this->prio > 10) {
             $errors[] = 'Priority must be over between 0 and 10';
         }

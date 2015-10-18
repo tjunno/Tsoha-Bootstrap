@@ -30,7 +30,7 @@ class TypeController extends BaseController
         if(count($errors) == 0) {
             $type->save();
 
-            Redirect::to('/', array('message' => 'New type added!'));
+            Redirect::to('/type', array('message' => 'New type added!'));
         }else{
             View::make('type/index.html', array('errors' => $errors, 'attributes' => $attributes));
         }
@@ -58,7 +58,7 @@ class TypeController extends BaseController
         if (count($errors) == 0) {
             $type->update();
 
-            Redirect::to('/type/', array('message' => 'Type has been updated successfully'));
+            Redirect::to('/type', array('message' => 'Type has been updated successfully'));
         }else{
             View::make('type/edit.html', array('errors' => '$errors', 'attributes' => '$attributes'));
         }

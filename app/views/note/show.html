@@ -14,8 +14,16 @@
     <a class="btn btn-default" href="{{base_path}}/note/{{note.id}}/edit">Edit</a>
 </p>
 <ul>
-    <li><strong>Priority:</strong> <label class="label label-danger">{{note.priority}}</label></li>
-    <li><strong>Type:</strong>{{note.type}}</li>
+    {% for priority in priorities%}
+        {% if note.priority == priority.id%}
+    <li><strong>Priority:</strong> <label class="label label-danger">{{priority.name}}</label></li>
+        {% endif %}
+    {% endfor %}
+    {% for type in types%}
+        {% if note.type == type.id%}
+    <li><strong>Type:</strong> <label class="label label-danger">{{type.name}}</label></li>
+        {% endif %}
+    {% endfor %}
     <li><strong>Added:</strong>{{note.added}}</li>
     <li><strong>State:</strong>
         {% if note.state %}
@@ -24,7 +32,7 @@
         <label class="label label-danger">Undone</label>
         {% endif %}
     </li>
-    <li><strong>Desciption:</strong></li>
+    <li><strong>Description:</strong></li>
     <label class="label label-info">{{note.description}}</label>
 </ul>
 

@@ -31,7 +31,7 @@ class PriorityController extends BaseController
         if(count($errors) == 0) {
             $priority->save();
 
-            Redirect::to('/', array('message' => 'New priority added!'));
+            Redirect::to('/priority', array('message' => 'New priority added!'));
         }else{
             View::make('priority/index.html', array('errors' => $errors, 'attributes' => $attributes));
         }
@@ -60,7 +60,7 @@ class PriorityController extends BaseController
         if (count($errors) == 0) {
             $priority->update();
 
-            Redirect::to('/priority/', array('message' => 'Priority has been updated successfully'));
+            Redirect::to('/priority', array('message' => 'Priority has been updated successfully'));
         }else{
             View::make('priority/edit.html', array('errors' => '$errors', 'attributes' => '$attributes'));
         }

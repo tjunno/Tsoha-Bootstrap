@@ -7,11 +7,11 @@
  */
 class Note extends BaseModel
 {
-    public $id, $dude, $name, $state, $description, $added, $priority, $type;
+    public $id, $dude, $name, $state, $description, $added, $priority, $types;
 
     public function __construct($attributes){
         parent::__construct($attributes);
-        $this->validators = array('validate_name', 'validate_priority', 'validate_description');
+        $this->validators = array('validate_name', 'validate_description');
     }
 
     public static function all($user){
@@ -65,8 +65,14 @@ class Note extends BaseModel
         $row = $query->fetch();
     }
 
+    public function finish() {
+        $query = DB::connection()->prepare('UPDATE Note SET state = TRUE WHERE id = :id');
+        $query->execute(array('id' => $this->id));
+        $row = $query->fetch();
+    }
+
     public function destroy(){
-        $query = DB::connection()->prepare('DELETE FROM Note where id = :id');
+        $query = DB::connection()->prepare('DELETE FROM Note WHERE id = :id');
         $query->execute(array('id' => $this->id));
         $row = $query->fetch();
     }
@@ -81,20 +87,6 @@ class Note extends BaseModel
         }
         if (strlen($this->name) > 120) {
             $errors[] = 'Length of the name must be under 120 chars';
-        }
-        return $errors;
-    }
-
-    public function validate_priority(){
-        $errors = array();
-        if ($this->priority == '' || $this->priority == null){
-            $errors[] = 'Priority cannot be empty';
-        }
-        if (is_int($this->priority)){
-            $errors[] = 'Priority must be integer';
-        }
-        if ($this->priority < 0 || $this->priority > 10) {
-            $errors[] = 'Priority must be over between 0 and 10';
         }
         return $errors;
     }

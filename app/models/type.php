@@ -38,7 +38,6 @@ class Type extends BaseModel
         if ($row){
            $type = new Type(array(
                 'id' => $row['id'],
-                'dude' => $row['dude'],
                 'name' => $row['name']
             ));
            return $type;

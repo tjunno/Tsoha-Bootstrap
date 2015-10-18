@@ -51,12 +51,16 @@ $routes->post('/note/:id/edit', function($id){
     NoteController::update($id);
 });
 
+$routes->post('/note/:id/finish', function($id){
+    NoteController::finish($id);
+});
+
 $routes->post('/note/:id/destroy', function($id){
     NoteController::destroy($id);
 });
 
 $routes->get('/login', function(){
-  UserController::login();
+    UserController::login();
 });
 
 $routes->post('/login', function(){

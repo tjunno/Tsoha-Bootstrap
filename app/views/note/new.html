@@ -20,9 +20,9 @@
 
     <div class="form-group">
     <label>Type</label>
-        <select class="form-control" name="type">
+        <select class="form-control" name="types[]" multiple="">
             {% for type in types %}
-            <option value="{{type}}">{{type.name}}</option>
+            <option value="{{type.name}}">{{type.name}}</option>
             {% endfor %}
         </select>
     </div>
@@ -31,7 +31,7 @@
     <label>Priority</label>
         <select class="form-control" name="priority">
             {% for priority in priorities %}
-            <option value="{{priority}}">{{priority.name}}</option>
+            <option value="{{priority.id}}">{{priority.name}}</option>
             {% endfor %}
         </select>
     </div>
