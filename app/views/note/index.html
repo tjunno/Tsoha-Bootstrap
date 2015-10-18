@@ -26,11 +26,11 @@
         <th>Name</th>
         <th>Added</th>
         <th>State</th>
-        <th>Type</th>
+        <th>Type(s)</th>
         <th>Priority</th>
         <th>Description</th>
-        <th></th>
-        <th></th>
+        <th>Edit</th>
+        <th>Finish?</th>
     </tr>
     </thead>
 
@@ -45,21 +45,23 @@
             <label class="label label-danger">Undone</label>
             {% endif %}
         </td>
-        {% for type in types %}
-            {% if type.id == task.type %}
-              <td>{{type.name}}</td>
-            {%endif%}
+        <td>
+        {% for type in note.types %}
+              <label class="label label-default">{{type.name}}</label>
         {% endfor %}
+        </td>
+        <td>
         {% for priority in priorities%}
-            {% if priority.id == task.priority %}
-              <td>{{priority.name}}</td>
+            {% if note.priority == priority.id %}
+              {{priority.name}}
             {% endif %}
         {% endfor %}
+        </td>
         <td>{{note.description}}</td>
         <td><a class="btn btn-default btn-sm" href="{{base_path}}/note/{{note.id}}/edit">Edit</a></td>
 
         <td>{% if note.state %}
-            {{forms.destroy_button("#{base_path}/note/#{note.id}/destroy")}}
+            Well done!
             {% else %}
             <form method="post" action="{{base_path}}/note/{{note.id}}/finish">
                 <button type="submit" class="btn btn-default">Finish</button>
@@ -69,5 +71,6 @@
     </tr>
     {% endfor %}
     </tbody>
+
 </table>
 {% endblock %}

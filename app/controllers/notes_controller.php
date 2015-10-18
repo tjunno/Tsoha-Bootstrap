@@ -12,8 +12,7 @@ class NoteController extends BaseController{
         $user_id = $_SESSION['user'];
         $notes = Note::all($user_id);
         $priorities = Priority::all($user_id);
-        $types = Type::all($user_id);
-        View::make('note/index.html', array('notes' => $notes));
+        View::make('note/index.html', array('notes' => $notes, 'priorities' => $priorities));
     }
 
     public static function create() {
@@ -45,10 +44,13 @@ class NoteController extends BaseController{
 
         if(count($errors) == 0) {
             $note->save();
-
             Redirect::to('/note/' . $note->id, array('message' => 'New task added!'));
         }else{
-            View::make('note/new.html', array('errors' => $errors, 'attributes' => $attributes));
+            $user_id = $_SESSION['user'];
+            $types = Type::all($user_id);
+            $priorities = Priority::all($user_id);
+            $selected = $note->types;
+            View::make('note/new.html', array('errors' => $errors, 'attributes' => $attributes, 'priorities' => $priorities, 'types' => $types, 'selected' => $selected));
         }
 
     }
@@ -58,7 +60,6 @@ class NoteController extends BaseController{
         $user_id = $_SESSION['user'];
         $note = Note::find($id);
         $priorities = Priority::all($user_id);
-        $types = Type::all($user_id);
         View::make('note/show.html', array('note' => $note, 'priorities' => $priorities));
     }
 
@@ -68,34 +69,45 @@ class NoteController extends BaseController{
         $user_id = $_SESSION['user'];
         $priorities = Priority::all($user_id);
         $types = Type::all($user_id);
-        View::make('note/edit.html', array('attributes' => $note, 'priorities' => $priorities));
+        $notetypes = array();
+        foreach($note->types as $type){
+            $notetypes[] = $type->id;
+        }
+
+        View::make('note/edit.html', array('attributes' => $note, 'priorities' => $priorities, 'types' => $types, 'notetypes' => $notetypes));
     }
 
     public static function update($id){
         self::check_logged_in();
         $params = $_POST;
         $types = $params['types'];
+        $priorities = Priority::all($_SESSION['user']);
         $attributes = array(
             'id' => $id,
-            'types' => array(),
             'name' => $params['name'],
             'priority' => $params['priority'],
-            'description' => $params['description']
+            'description' => $params['description'],
+            'types' => array()
         );
-
         foreach($types as $type){
             $attributes['types'][] = $type;
         }
 
         $note = new Note($attributes);
         $errors = $note->errors();
-
         if (count($errors) == 0) {
             $note->update();
 
             Redirect::to('/note/' . $note->id, array('message' => 'Task has been updated successfully'));
         }else{
-            View::make('note/edit.html', array('errors' => '$errors', 'attributes' => '$attributes'));
+            $user_id = $_SESSION['user'];
+            $types = Type::all($user_id);
+            $priorities = Priority::all($user_id);
+            $notetypes = array();
+            foreach($note->types as $type){
+                $notetypes[] = $type->id;
+            }
+            View::make('note/edit.html', array('errors' => '$errors', 'attributes' => '$attributes', 'priorities' => $priorities, 'types' => $types, 'notetypes' => $notetypes));
         }
     }
 

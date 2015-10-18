@@ -30,5 +30,5 @@ CREATE TABLE Note(
 CREATE TABLE Typeonote(
   id SERIAL PRIMARY KEY,
   note INTEGER REFERENCES Note(id),
-  dude INTEGER REFERENCES Dude(id)
+  type INTEGER REFERENCES Type(id)
 );

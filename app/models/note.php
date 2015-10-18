@@ -19,7 +19,18 @@ class Note extends BaseModel
         $query->execute(array('user' => $user));
         $rows = $query->fetchAll();
         $notes = array();
-        foreach($rows as $row){
+
+        foreach ($rows as $row) {
+            $querytype = DB::connection()->prepare('SELECT type.id, type.name from Note, Type, Typeonote WHERE type.dude = note.dude AND typeonote.type = type.id AND typeonote.note = note.id AND note.id = :id');
+            $querytype->execute(array('id' => $row['id']));
+            $typerows = $querytype->fetchAll();
+            $types = array();
+            foreach ($typerows as $typerow) {
+                $types[] = new Type(array(
+                    'id' => $typerow['id'],
+                    'name' => $typerow['name']
+                ));
+            }
             $notes[] = new Note(array(
                 'id' => $row['id'],
                 'dude' => $row['dude'],
@@ -27,8 +38,10 @@ class Note extends BaseModel
                 'state'=> $row['state'],
                 'description' => $row['description'],
                 'added' => $row['added'],
-                'priority' => $row['priority']
+                'priority' => $row['priority'],
+                'types' => $types
             ));
+            unset($types);
         }
         return $notes;
     }
@@ -37,7 +50,18 @@ class Note extends BaseModel
         $query = DB::connection()->prepare('SELECT * FROM Note WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
+        $querytype = DB::connection()->prepare('SELECT type.id, type.name from Note, Type, Typeonote WHERE type.dude = note.dude AND  typeonote.type = type.id AND typeonote.note = note.id AND note.id = :id');
+        $querytype->execute(array('id' => $row['id']));
+        $typerows = $querytype->fetchAll();
+        $types = array();
         if ($row){
+        foreach ($typerows as $typerow) {
+            $types[] = new Type(array(
+                'id' => $typerow['id'],
+                'name' => $typerow['name']
+            ));
+        }
+
            $note = new Note(array(
                 'id' => $row['id'],
                 'dude' => $row['dude'],
@@ -45,9 +69,10 @@ class Note extends BaseModel
                 'state'=> $row['state'],
                 'description' => $row['description'],
                 'added' => $row['added'],
-                'priority' => $row['priority']
+                'priority' => $row['priority'],
+                'types' => $types
             ));
-           return $note;
+            return $note;
         }
         return null;
     }
@@ -57,12 +82,26 @@ class Note extends BaseModel
         $query->execute(array('dude'=>$_SESSION['user'], 'name' => $this->name, 'added' => $this->added, 'priority' => $this->priority, 'description' => $this->description));
         $row = $query->fetch();
         $this->id = $row['id'];
+        foreach($this->types as $type) {
+            $querytype = DB::connection()->prepare('INSERT INTO Typeonote (type, note) VALUES (:type, :note)');
+            $querytype->execute(array('type' => $type, 'note' => $this->id));
+            $row = $query->fetch();
+	  }
     }
 
     public function update(){
         $query = DB::connection()->prepare('UPDATE Note SET (name, priority, description) = (:name, :priority, :description) WHERE id = :id');
         $query->execute(array('id' => $this->id, 'name' => $this->name, 'priority' => $this->priority, 'description' => $this->description));
         $row = $query->fetch();
+        $types = $this->types;
+        $destroyoldies = DB::connection()->prepare('DELETE FROM Typeonote WHERE note = :note');
+        $destroyoldies->execute(array('note' => $this->id));
+        $row = $query->fetch();
+        foreach($types as $type) {
+            $querytype = DB::connection()->prepare('INSERT INTO Typeonote (type, note) VALUES (:type, :note)');
+            $querytype->execute(array('type' => $type, 'note' => $this->id));
+            $row = $query->fetch();
+        }
     }
 
     public function finish() {
@@ -102,4 +141,5 @@ class Note extends BaseModel
         }
         return $errors;
     }
+
 }

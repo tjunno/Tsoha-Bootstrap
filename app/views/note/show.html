@@ -19,11 +19,12 @@
     <li><strong>Priority:</strong> <label class="label label-danger">{{priority.name}}</label></li>
         {% endif %}
     {% endfor %}
-    {% for type in types%}
-        {% if note.type == type.id%}
-    <li><strong>Type:</strong> <label class="label label-danger">{{type.name}}</label></li>
-        {% endif %}
-    {% endfor %}
+    <li><strong>Type(s):</strong>
+        {% for type in note.types%}
+             <label class="label label-danger">{{type.name}}</label>
+        {% endfor %}
+    </li>
+
     <li><strong>Added:</strong>{{note.added}}</li>
     <li><strong>State:</strong>
         {% if note.state %}
